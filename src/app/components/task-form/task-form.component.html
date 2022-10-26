@@ -1,0 +1,87 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Task Info</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  ></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="taskInfoForm">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        formControlName="title"
+      />
+      <div
+        [hidden]="
+          taskInfoForm.controls.title.valid ||
+          taskInfoForm.controls.title.pristine
+        "
+        class="invalid"
+      >
+        Required and should only contain alphabets.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        formControlName="description"
+      />
+      <div
+        [hidden]="
+          taskInfoForm.controls.description.valid ||
+          taskInfoForm.controls.description.pristine
+        "
+        class="invalid"
+      >
+        Required and should be should be minimum 25 characters.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="column" class="form-label">Column</label>
+      <select class="form-select" id="column" formControlName="column">
+        <option value="NONE" selected>Choose...</option>
+        <option value="TODO">To Do</option>
+        <option value="DOING">Doing</option>
+        <option value="DONE">Done</option>
+      </select>
+      <div
+        [hidden]="
+          taskInfoForm.controls.column.valid ||
+          taskInfoForm.controls.column.pristine
+        "
+        class="invalid"
+      >
+        Please select column.
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button
+    *ngIf="isEditMode"
+    type="button"
+    class="btn btn-danger"
+    (click)="onDelete()"
+    [disabled]="taskInfoForm.status !== 'VALID'"
+  >
+    Delete
+  </button>
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="onSubmit()"
+    [disabled]="taskInfoForm.status !== 'VALID'"
+  >
+    Submit
+  </button>
+</div>

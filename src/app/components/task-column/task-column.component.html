@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-header fw-bold {{ columnHeaderClasses }}">
+    {{ columnName }}
+  </div>
+  <div class="card-body py-3 task-column" id="{{dataColumn}}" dragula="CARDS" [(dragulaModel)]="tasks">
+    <ng-container *ngFor="let task of tasks">
+      <app-task-card [task]="task"></app-task-card>
+    </ng-container>
+  </div>
+  <div *ngIf="tasks.length === 0" class="text-muted pb-4 px-3">No task</div>
+  <div class="bg-light p-2"><i role="button" class="bi bi-plus-circle-fill text-primary" (click)="open(dataColumn)"></i></div>
+</div>
